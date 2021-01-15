@@ -4,7 +4,7 @@ canvas.width = 960;
 canvas.height = 720;
 
 // INFORMAÇÕES DO QUADRADINHO
-let posX = 550;
+let posX = 0;
 let posY = 350;
 let t0;
 let dt;
@@ -41,7 +41,7 @@ function frame(t)
 
 function attEstado(t)
 {
-    posX = posX + (900 * Math.cos(t/400))*dt;
+    posX = posX + (1190 * Math.sin(t/400))*dt;
     posY = posY + (800 * Math.cos(t/200))*dt;
 }
 
