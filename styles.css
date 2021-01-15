@@ -1,0 +1,45 @@
+/* TUDO */
+*{
+    font-family: 'Montserrat';
+
+    /* Remoção das Margens que me irritam */
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding: 0em;
+}
+
+/* ESTILO DOS IDS */
+#DivPrincipal{
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0.1em 0em;
+}
+
+#CanvasPrincipal{
+    
+}
+
+/* ESTILO DAS CLASSES */
+.DivTitulo{
+    background-color: black;
+    color: white; 
+    padding: 20px 10px;
+    height: 88.34px;
+}
+
+.DivCorpo{
+    max-height: 720px;
+    padding: 10px 0px;
+}
+
+.DivFooter{
+    background-color: black;
+    color: white; 
+    padding: 10px;
+}
+
+
+/* ESTILO DAS TAGS */
+
+
+
