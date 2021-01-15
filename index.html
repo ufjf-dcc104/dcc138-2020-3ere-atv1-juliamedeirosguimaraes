@@ -4,23 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DCC138 Atividade 1</title>
+
+    <!-- Arquivos externos -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link href="styles.css" rel="stylesheet" />
 </head>
 <body>
     <h1>DCC138 Atividade 1</h1>
     <canvas></canvas>
     <p>Por: Julia Medeiros (2021)</p>
-    <script>
-        let canvas = document.querySelector("canvas");
-        canvas.width = 640;
-        canvas.height = 480;
-
-        let contexto = canvas.getContext("2d");
-                        // posição 0, 0 (meio) de tamanho max (largura x altura)
-        contexto.fillRect (0, 0, canvas.width, canvas.height);
-        
-        contexto.fillStyle = "white";
-                        // posição 310, 230 (meio) de tamanho 20 x 20
-        contexto.fillRect(310,230, 20, 20);
-    </script>
+    <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
