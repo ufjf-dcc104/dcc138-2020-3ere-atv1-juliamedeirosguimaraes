@@ -4,7 +4,7 @@ canvas.width = 960;
 canvas.height = 720;
 
 // INFORMAÇÕES DO QUADRADINHO
-let posX = 470;
+let posX = 550;
 let posY = 350;
 let t0;
 let dt;
@@ -26,7 +26,11 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
-    //Branco
+    //Atualiza estado
+    attEstado(t);
+
+
+    //Desenha elemento
     contexto.fillStyle = "white";
     contexto.fillRect(posX, posY, 20, 20);
 
@@ -35,4 +39,9 @@ function frame(t)
     t0 = t;
 }
 
+function attEstado(t)
+{
+    posX = posX + (900 * Math.cos(t/400))*dt;
+    posY = posY + (800 * Math.cos(t/200))*dt;
+}
 
