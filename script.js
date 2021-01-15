@@ -4,7 +4,7 @@ canvas.width = 960;
 canvas.height = 720;
 
 // INFORMAÇÕES DO QUADRADINHO
-let posX = 0;
+let posX = 470
 let posY = 350;
 let t0;
 let dt;
