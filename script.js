@@ -30,26 +30,32 @@ let player = {
     mover: moverElemento,
     desenhar: desenharElemento
 };
-let enemy = {
-    cor: "red",
 
-    // Posição
-    posX: 100,
-    posY: 100,
-
-    // MOVIMENTO
-        // Velocidade nos eixos X e Y
-        vX: 0,
-        vY: 0,
-
-        // Aceleração
-        aX: 0,
-        aY: 0,
-
-    mover: moverElemento,
-    desenhar: desenharElemento,
-    perseguir: perseguirAlvo
-};
+const enemies = [];
+for (let ne = 0; ne <5; ne++)
+{
+    let enemy = {
+        cor: "red",
+    
+        // Posição
+        posX: canvas.width * Math.random(),
+        posY: canvas.height * Math.random(),
+    
+        // MOVIMENTO
+            // Velocidade nos eixos X e Y
+            vX: 0,
+            vY: 0,
+    
+            // Aceleração
+            aX: 0,
+            aY: 0,
+    
+        mover: moverElemento,
+        desenhar: desenharElemento,
+        perseguir: perseguirAlvo
+    };
+    enemies.push(enemy);
+}
 
 //Velocidade de X e Y
 const K = 200;
@@ -74,16 +80,15 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
-    //Perseguir Alvo
-    enemy.perseguir(player)
+    for (let s = 0; s < enemies.length; s++)
+    {
+        enemies[s].perseguir(player) //Perseguir Alvo
+        enemies[s].mover(); //Atualiza estado
+        enemies[s].desenhar(); //Desenha Elementos
+    }
 
-    //Atualiza estado
-    player.mover();
-    enemy.mover();
-
-    //Desenha Elementos
-    player.desenhar();
-    enemy.desenhar();
+    player.mover();//Atualiza estado
+    player.desenhar(); //Desenha Elementos
 
     //Request next
     requestAnimationFrame(frame);
