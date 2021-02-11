@@ -48,7 +48,7 @@ let enemy = {
 
     mover: moverElemento,
     desenhar: desenharElemento,
-    controlar: controlarElemento
+    perseguir: perseguirAlvo
 };
 
 //Velocidade de X e Y
@@ -75,7 +75,7 @@ function frame(t)
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
     //Perseguir Alvo
-    enemy.controlar(player)
+    enemy.perseguir(player)
 
     //Atualiza estado
     player.mover();
@@ -142,8 +142,13 @@ function desenharElemento( )
     contexto.fillRect(this.posX, this.posY, 20, 20);
 }
 
-function controlarElemento(alvo)
+function perseguirAlvo(alvo)
 {
     this.aX = 0.5 * (alvo.posX - this.posX) - 0.2 * this.vX;
     this.aY = 0.5 * (alvo.posY - this.posY) - 0.2 * this.vY;
+}
+function evitarAlvo(alvo)
+{
+    this.aX = -0.5 * (alvo.posX - this.posX) - 0.2 * this.vX;
+    this.aY = -0.5 * (alvo.posY - this.posY) - 0.2 * this.vY;
 }
