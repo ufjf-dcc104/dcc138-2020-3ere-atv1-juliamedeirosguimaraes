@@ -3,8 +3,17 @@ let canvas = document.querySelector("canvas");
 canvas.width = 960;
 canvas.height = 720;
 
-// CRIAÇÃO DO PLAYER EM OBJETO
+// DEFINIÇÃO DE CONTEXTO
+let contexto = canvas.getContext("2d");
+contexto.fillStyle = "black";
+contexto.fillRect (0, 0, canvas.width, canvas.height);
+
+
+// CRIAÇÃO DAS ENTIDADES
 let player = {
+    // SKIN
+    cor: "white",
+
     // Posição
     posX: 470,
     posY: 350,
@@ -18,19 +27,15 @@ let player = {
         aX: 0,
         aY: 0,
 
-    //METODOS
-    desenhar: function() 
-    {
-        //Desenha elemento
-        contexto.fillStyle = "white";
-        contexto.fillRect(this.posX, this.posY, 20, 20);
-    }
+    mover: moverElemento,
+    desenhar: desenharElemento
 };
-
 let enemy = {
+    cor: "red",
+
     // Posição
-    posX: 20,
-    posY: 20,
+    posX: 100,
+    posY: 100,
 
     // MOVIMENTO
         // Velocidade nos eixos X e Y
@@ -39,7 +44,11 @@ let enemy = {
 
         // Aceleração
         aX: 0,
-        aY: 0
+        aY: 0,
+
+    mover: moverElemento,
+    desenhar: desenharElemento,
+    controlar: controlarElemento
 };
 
 //Velocidade de X e Y
@@ -49,12 +58,11 @@ const K = 200;
 let t0;
 let dt;
 
-// DEFINIÇÃO DE CONTEXTO
-let contexto = canvas.getContext("2d");
-                // posição 0, 0 (meio) de tamanho max (largura x altura)
-contexto.fillRect (0, 0, canvas.width, canvas.height);
 
 requestAnimationFrame(frame);
+addEventListener("keydown", teclaPressionada);
+addEventListener("keyup", teclaSolta);
+
 
 function frame(t)
 {
@@ -66,28 +74,21 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
-    //Desenha Player
-    player.desenhar();
+    //Perseguir Alvo
+    enemy.controlar(player)
 
     //Atualiza estado
-    attEstado(t);
+    player.mover();
+    enemy.mover();
+
+    //Desenha Elementos
+    player.desenhar();
+    enemy.desenhar();
 
     //Request next
     requestAnimationFrame(frame);
     t0 = t;
 }
-
-function attEstado(t)
-{
-    //Dinamicamente definindo posição
-    player.vX = player.vX + player.aX * dt;
-    player.vY = player.vY + player.aY * dt;
-    player.posX = player.posX + player.vX *dt;
-    player.posY = player.posY + player.vY *dt;
-}
-
-addEventListener("keydown", teclaPressionada);
-addEventListener("keyup", teclaSolta);
 
 function teclaPressionada(event) 
 {
@@ -114,13 +115,35 @@ function teclaSolta(event)
     {
         case "ArrowUp":
         case "ArrowDown":
-            //player.vY = 0;
+            player.vY = 0;
             player.aY = 0;
             break;
         case "ArrowRight":
         case "ArrowLeft":
-            //player.vX = 0;
+            player.vX = 0;
             player.aX = 0;
             break;
     }
+}
+
+function moverElemento( )
+{
+    //Dinamicamente definindo posição
+    this.vX = this.vX + this.aX * dt;
+    this.vY = this.vY + this.aY * dt;
+    this.posX = this.posX + this.vX *dt;
+    this.posY = this.posY + this.vY *dt;
+}
+
+function desenharElemento( ) 
+{
+    //Desenha elemento
+    contexto.fillStyle = this.cor;
+    contexto.fillRect(this.posX, this.posY, 20, 20);
+}
+
+function controlarElemento(alvo)
+{
+    this.aX = 0.5 * (alvo.posX - this.posX) - 0.2 * this.vX;
+    this.aY = 0.5 * (alvo.posY - this.posY) - 0.2 * this.vY;
 }
