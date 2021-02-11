@@ -8,8 +8,13 @@ let posX = 470
 let posY = 350;
 
 //Velocidade de X e Y
+const velocidade = 200;
 let vX = 0;
 let vY = 0;
+
+//Aceleração
+let aX = 0;
+let aY = 0;
 
 //Em função do tempo
 let t0;
@@ -47,6 +52,8 @@ function frame(t)
 
 function attEstado(t)
 {
+    vX = vX + aX * dt;
+    vY = vY + aY * dt;
     posX = posX + vX *dt;
     posY = posY + vY *dt;
 }
@@ -59,16 +66,16 @@ function teclaPressionada(event)
     switch(event.key)
     {
         case "ArrowUp":
-            vY = -200;
+            vY = -velocidade;
             break;
         case "ArrowDown":
-            vY = +200;
+            vY = +velocidade;
             break;
         case "ArrowRight":
-            vX = +200;
+            vX = +velocidade;
             break;
         case "ArrowLeft":
-            vX = -200;
+            vX = -velocidade;
             break;
     }
 }
