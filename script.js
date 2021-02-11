@@ -16,10 +16,15 @@ let player = {
 
         // Aceleração
         aX: 0,
-        aY: 0
+        aY: 0,
 
-    //METODO
-    //desenha: 
+    //METODOS
+    desenhar: function() 
+    {
+        //Desenha elemento
+        contexto.fillStyle = "white";
+        contexto.fillRect(this.posX, this.posY, 20, 20);
+    }
 };
 
 let enemy = {
@@ -61,14 +66,11 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
-    
+    //Desenha Player
+    player.desenhar();
 
     //Atualiza estado
     attEstado(t);
-
-    //Desenha elemento
-    contexto.fillStyle = "white";
-    contexto.fillRect(player.posX, player.posY, 20, 20);
 
     //Request next
     requestAnimationFrame(frame);
@@ -112,12 +114,12 @@ function teclaSolta(event)
     {
         case "ArrowUp":
         case "ArrowDown":
-            player.vY = 0;
+            //player.vY = 0;
             player.aY = 0;
             break;
         case "ArrowRight":
         case "ArrowLeft":
-            player.vX = 0;
+            //player.vX = 0;
             player.aX = 0;
             break;
     }
