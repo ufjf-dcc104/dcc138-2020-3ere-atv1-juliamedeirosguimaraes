@@ -3,18 +3,42 @@ let canvas = document.querySelector("canvas");
 canvas.width = 960;
 canvas.height = 720;
 
-// INFORMAÇÕES DO QUADRADINHO
-let posX = 470
-let posY = 350;
+// CRIAÇÃO DO PLAYER EM OBJETO
+let player = {
+    // Posição
+    posX: 470,
+    posY: 350,
+
+    // MOVIMENTO
+        // Velocidade nos eixos X e Y
+        vX: 0,
+        vY: 0,
+
+        // Aceleração
+        aX: 0,
+        aY: 0
+
+    //METODO
+    //desenha: 
+};
+
+let enemy = {
+    // Posição
+    posX: 20,
+    posY: 20,
+
+    // MOVIMENTO
+        // Velocidade nos eixos X e Y
+        vX: 0,
+        vY: 0,
+
+        // Aceleração
+        aX: 0,
+        aY: 0
+};
 
 //Velocidade de X e Y
 const K = 200;
-let vX = 0;
-let vY = 0;
-
-//Aceleração
-let aX = 0;
-let aY = 0;
 
 //Em função do tempo
 let t0;
@@ -37,13 +61,14 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
+    
+
     //Atualiza estado
     attEstado(t);
 
-
     //Desenha elemento
     contexto.fillStyle = "white";
-    contexto.fillRect(posX, posY, 20, 20);
+    contexto.fillRect(player.posX, player.posY, 20, 20);
 
     //Request next
     requestAnimationFrame(frame);
@@ -52,11 +77,11 @@ function frame(t)
 
 function attEstado(t)
 {
-    //dINAMICAMENTE DOS DADOS
-    vX = vX + aX * dt;
-    vY = vY + aY * dt;
-    posX = posX + vX *dt;
-    posY = posY + vY *dt;
+    //Dinamicamente definindo posição
+    player.vX = player.vX + player.aX * dt;
+    player.vY = player.vY + player.aY * dt;
+    player.posX = player.posX + player.vX *dt;
+    player.posY = player.posY + player.vY *dt;
 }
 
 addEventListener("keydown", teclaPressionada);
@@ -67,16 +92,16 @@ function teclaPressionada(event)
     switch(event.key)
     {
         case "ArrowUp":
-            aY = -K;
+            player.aY = -K;
             break;
         case "ArrowDown":
-            aY = +K;
+            player.aY = +K;
             break;
         case "ArrowRight":
-            aX = +K;
+            player.aX = +K;
             break;
         case "ArrowLeft":
-            aX = -K;
+            player.aX = -K;
             break;
     }
 }
@@ -87,13 +112,13 @@ function teclaSolta(event)
     {
         case "ArrowUp":
         case "ArrowDown":
-            vY = 0;
-            aY = 0;
+            player.vY = 0;
+            player.aY = 0;
             break;
         case "ArrowRight":
         case "ArrowLeft":
-            vX = 0;
-            aX = 0;
+            player.vX = 0;
+            player.aX = 0;
             break;
     }
 }
