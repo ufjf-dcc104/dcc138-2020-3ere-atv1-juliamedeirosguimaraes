@@ -11,6 +11,7 @@ let posY = 350;
 let vX = 0;
 let vY = 0;
 
+//Em função do tempo
 let t0;
 let dt;
 
@@ -61,10 +62,10 @@ function teclaPressionada(event)
             vY = -200;
             break;
         case "ArrowDown":
-            vY = 200;
+            vY = +200;
             break;
         case "ArrowRight":
-            vX = 200;
+            vX = +200;
             break;
         case "ArrowLeft":
             vX = -200;
@@ -79,10 +80,12 @@ function teclaSolta(event)
         case "ArrowUp":
         case "ArrowDown":
             vY = 0;
+            aY = 0;
             break;
         case "ArrowRight":
         case "ArrowLeft":
             vX = 0;
+            aX = 0;
             break;
     }
 }
