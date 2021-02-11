@@ -6,6 +6,11 @@ canvas.height = 720;
 // INFORMAÇÕES DO QUADRADINHO
 let posX = 470
 let posY = 350;
+
+//Velocidade de X e Y
+let vX = 0;
+let vY = 0;
+
 let t0;
 let dt;
 
@@ -41,7 +46,43 @@ function frame(t)
 
 function attEstado(t)
 {
-    posX = posX + (1190 * Math.sin(t/400))*dt;
-    posY = posY + (800 * Math.cos(t/200))*dt;
+    posX = posX + vX *dt;
+    posY = posY + vY *dt;
 }
 
+addEventListener("keydown", teclaPressionada);
+addEventListener("keyup", teclaSolta);
+
+function teclaPressionada(event) 
+{
+    switch(event.key)
+    {
+        case "ArrowUp":
+            vY = -200;
+            break;
+        case "ArrowDown":
+            vY = 200;
+            break;
+        case "ArrowRight":
+            vX = 200;
+            break;
+        case "ArrowLeft":
+            vX = -200;
+            break;
+    }
+}
+
+function teclaSolta(event) 
+{
+    switch(event.key)
+    {
+        case "ArrowUp":
+        case "ArrowDown":
+            vY = 0;
+            break;
+        case "ArrowRight":
+        case "ArrowLeft":
+            vX = 0;
+            break;
+    }
+}
