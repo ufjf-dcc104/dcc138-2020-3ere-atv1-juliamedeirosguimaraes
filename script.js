@@ -31,6 +31,7 @@ let player = {
     desenhar: desenharElemento
 };
 
+
 const enemies = [];
 for (let ne = 0; ne <5; ne++)
 {
@@ -38,8 +39,8 @@ for (let ne = 0; ne <5; ne++)
         cor: "red",
     
         // Posição
-        posX: canvas.width * Math.random(),
-        posY: canvas.height * Math.random(),
+        posX: (canvas.width-20) * Math.random(),
+        posY: (canvas.height-20) * Math.random(),
     
         // MOVIMENTO
             // Velocidade nos eixos X e Y
@@ -56,6 +57,37 @@ for (let ne = 0; ne <5; ne++)
     };
     enemies.push(enemy);
 }
+
+let o = {
+    // SKIN
+    cor: "blue",
+
+    // Posição
+    posX: -20,
+    posY: -20,
+ 
+    // MOVIMENTO
+        // Velocidade nos eixos X e Y
+        vX: 0,
+        vY: 0,
+
+        // Aceleração
+        aX: 50,
+        aY: 0,
+
+    mover: moverElemento,
+    desenhar: desenharElemento,
+    controlar: function()
+    {
+        if (this.posX > (canvas.width + 20)){
+            this.posX = -20;
+            this.aX = 0;
+            this.vX = 0;
+        }
+    }
+};
+enemies.push(o);
+
 
 //Velocidade de X e Y
 const K = 200;
@@ -82,13 +114,14 @@ function frame(t)
 
     for (let s = 0; s < enemies.length; s++)
     {
-        enemies[s].perseguir(player) //Perseguir Alvo
+        enemies[s].perseguir?.(player) //Perseguir Alvo
         enemies[s].mover(); //Atualiza estado
         enemies[s].desenhar(); //Desenha Elementos
     }
 
     player.mover();//Atualiza estado
     player.desenhar(); //Desenha Elementos
+    o.controlar();
 
     //Request next
     requestAnimationFrame(frame);
@@ -111,7 +144,16 @@ function teclaPressionada(event)
         case "ArrowLeft":
             player.aX = -K;
             break;
+        case " ":
+            if (this.posX > canvas.width + 20){
+                o.posX = player.posX;
+                o.posY = player.posY;
+                o.vX = 0;
+                o.aX = 200;
+            }
+
     }
+
 }
 
 function teclaSolta(event) 
