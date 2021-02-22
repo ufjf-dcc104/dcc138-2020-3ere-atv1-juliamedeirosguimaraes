@@ -36,7 +36,7 @@ let player = {
 
 
 const enemies = [];
-for (let ne = 0; ne <5; ne++)
+for (let ne = 0; ne <10; ne++)
 {
     let e = {
         cor: "red",
