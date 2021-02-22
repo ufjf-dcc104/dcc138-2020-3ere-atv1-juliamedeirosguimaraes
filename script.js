@@ -35,7 +35,7 @@ let player = {
 const enemies = [];
 for (let ne = 0; ne <5; ne++)
 {
-    let enemy = {
+    let e = {
         cor: "red",
     
         // Posição
@@ -55,7 +55,7 @@ for (let ne = 0; ne <5; ne++)
         desenhar: desenharElemento,
         perseguir: perseguirAlvo
     };
-    enemies.push(enemy);
+    enemies.push(e);
 }
 
 let o = {
@@ -112,15 +112,33 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
+    player.mover();//Atualiza estado
+    player.desenhar(); //Desenha Elementos
+
     for (let s = 0; s < enemies.length; s++)
     {
+        const enemy = enemies[s];
         enemies[s].perseguir?.(player) //Perseguir Alvo
         enemies[s].mover(); //Atualiza estado
         enemies[s].desenhar(); //Desenha Elementos
+
+        if (colidiram(o, enemy) && o !== enemy){
+            o.posX = canvas.width + 20;
+            o.posY = -20;
+            o.vX = 0;
+            o.vY = 0;
+            enemy.posX = canvas.width + 10;
+            enemy.vX = 100;
+            enemy.aX = 0;
+        }
+        if (colidiram(player, enemy) && o !== enemy){
+            enemy.posX = canvas.width + 10;
+            enemy.posY = canvas.height * Math.random();
+            enemy.vX = 100;
+            enemy.aX = 0;
+        }
     }
 
-    player.mover();//Atualiza estado
-    player.desenhar(); //Desenha Elementos
     o.controlar();
 
     //Request next
