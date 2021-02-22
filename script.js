@@ -119,9 +119,6 @@ function frame(t)
     contexto.fillStyle = "black";
     contexto.fillRect (0, 0, canvas.width, canvas.height);
 
-    player.mover();//Atualiza estado
-    player.desenhar(); //Desenha Elementos
-
     for (let s = 0; s < enemies.length; s++)
     {
         const enemy = enemies[s];
@@ -150,6 +147,8 @@ function frame(t)
     }
     o.controlar();
 
+    player.mover();//Atualiza estado
+    player.desenhar(); //Desenha Elementos
 
     contexto.fillStyle = "yellow";
     contexto.font = "20px Impact";
@@ -220,8 +219,8 @@ function desenharElemento( )
 
 function perseguirAlvo(alvo)
 {
-    this.aX = 150 * Math.sign(alvo.posX - this.posX) - 0.2 * this.vX;
-    this.aY = 150 * Math.sign(alvo.posY - this.posY) - 0.2 * this.vY;
+    this.aX = 300 * Math.sign(alvo.posX - this.posX) - 0.2 * this.vX;
+    this.aY = 300 * Math.sign(alvo.posY - this.posY) - 0.2 * this.vY;
 }
 function evitarAlvo(alvo)
 {
@@ -231,10 +230,10 @@ function evitarAlvo(alvo)
 
 function colidiram (A,B) {
     return !(
-        (A.posX > B.posX + 20)
-     || (A.posX +20 < B.posX)
-     || (A.posY > B.posY + 20)
-     || (A.posY +20 < B.posY)
+        (A.posX > B.posX + B.w)
+     || (A.posX + A.w < B.posX)
+     || (A.posY > B.posY + B.h)
+     || (A.posY + A.h < B.posY)
       );
     
 }
