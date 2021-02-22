@@ -63,7 +63,7 @@ let o = {
     cor: "blue",
 
     // Posição
-    posX: -20,
+    posX: canvas.width + 20,
     posY: -20,
  
     // MOVIMENTO
@@ -72,7 +72,7 @@ let o = {
         vY: 0,
 
         // Aceleração
-        aX: 50,
+        aX: 0,
         aY: 0,
 
     mover: moverElemento,
@@ -145,12 +145,10 @@ function teclaPressionada(event)
             player.aX = -K;
             break;
         case " ":
-            if (this.posX > canvas.width + 20){
                 o.posX = player.posX;
                 o.posY = player.posY;
                 o.vX = 0;
                 o.aX = 200;
-            }
 
     }
 
@@ -198,4 +196,14 @@ function evitarAlvo(alvo)
 {
     this.aX = -0.5 * (alvo.posX - this.posX) - 0.2 * this.vX;
     this.aY = -0.5 * (alvo.posY - this.posY) - 0.2 * this.vY;
+}
+
+function colidiram (A,B) {
+    return !(
+        (A.posX > B.posX + 20)
+     || (A.posX +20 < B.posX)
+     || (A.posY > B.posY + 20)
+     || (A.posY +20 < B.posY)
+      );
+    
 }
