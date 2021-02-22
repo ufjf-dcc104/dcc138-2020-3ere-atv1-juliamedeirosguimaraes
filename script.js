@@ -14,6 +14,8 @@ contexto.fillRect (0, 0, canvas.width, canvas.height);
 let player = {
     // SKIN
     cor: "white",
+    w: 40,
+    h: 40,
 
     // Posição
     posX: 470,
@@ -38,6 +40,8 @@ for (let ne = 0; ne <5; ne++)
 {
     let e = {
         cor: "red",
+        w: 20,
+        h: 20,
     
         // Posição
         posX: 1000 + (canvas.width-20) * Math.random(),
@@ -62,6 +66,8 @@ for (let ne = 0; ne <5; ne++)
 let o = {
     // SKIN
     cor: "blue",
+    w: 10,
+    h: 10,
 
     // Posição
     posX: canvas.width + 20,
@@ -91,7 +97,7 @@ enemies.push(o);
 
 
 //Velocidade de X e Y
-const K = 200;
+const K = 300;
 
 //Em função do tempo
 let t0;
@@ -170,8 +176,8 @@ function teclaPressionada(event)
             player.aX = -K;
             break;
         case " ":
-                o.posX = player.posX;
-                o.posY = player.posY;
+                o.posX = player.posX+((player.h-o.h)/2);
+                o.posY = player.posY+((player.h-o.h)/2);
                 o.vX = 0;
                 o.aX = 200;
 
@@ -209,7 +215,7 @@ function desenharElemento( )
 {
     //Desenha elemento
     contexto.fillStyle = this.cor;
-    contexto.fillRect(this.posX, this.posY, 20, 20);
+    contexto.fillRect(this.posX, this.posY, this.w, this.h);
 }
 
 function perseguirAlvo(alvo)
