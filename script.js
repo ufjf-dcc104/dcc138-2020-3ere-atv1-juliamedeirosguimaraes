@@ -2,6 +2,7 @@
 let canvas = document.querySelector("canvas");
 canvas.width = 960;
 canvas.height = 720;
+let pontos = 0;
 
 // DEFINIÇÃO DE CONTEXTO
 let contexto = canvas.getContext("2d");
@@ -39,7 +40,7 @@ for (let ne = 0; ne <5; ne++)
         cor: "red",
     
         // Posição
-        posX: (canvas.width-20) * Math.random(),
+        posX: 1000 + (canvas.width-20) * Math.random(),
         posY: (canvas.height-20) * Math.random(),
     
         // MOVIMENTO
@@ -127,20 +128,26 @@ function frame(t)
             o.posY = -20;
             o.vX = 0;
             o.vY = 0;
-            enemy.posX = canvas.width + 10;
-            enemy.vX = 100;
-            enemy.aX = 0;
+            enemy.posX = canvas.width + 2000;
+            enemy.posY = canvas.height * Math.random();
+            enemy.vX = 0;
+            enemy.aX = 150;
+            pontos += 2;
         }
         if (colidiram(player, enemy) && o !== enemy){
-            enemy.posX = canvas.width + 10;
+            enemy.posX = canvas.width + 2000;
             enemy.posY = canvas.height * Math.random();
-            enemy.vX = 100;
-            enemy.aX = 0;
+            enemy.vX = 0;
+            enemy.aX = 150;
+            pontos -= 3;
         }
     }
-
     o.controlar();
 
+
+    contexto.fillStyle = "yellow";
+    contexto.font = "20px Impact";
+    contexto.fillText(pontos, 20, 30);
     //Request next
     requestAnimationFrame(frame);
     t0 = t;
@@ -207,8 +214,8 @@ function desenharElemento( )
 
 function perseguirAlvo(alvo)
 {
-    this.aX = 100 * Math.sign(alvo.posX - this.posX) - 0.2 * this.vX;
-    this.aY = 100 * Math.sign(alvo.posY - this.posY) - 0.2 * this.vY;
+    this.aX = 150 * Math.sign(alvo.posX - this.posX) - 0.2 * this.vX;
+    this.aY = 150 * Math.sign(alvo.posY - this.posY) - 0.2 * this.vY;
 }
 function evitarAlvo(alvo)
 {
